@@ -19,15 +19,21 @@ char* getExpr();
 Checker getChecker();
 std::string getErrorMessage();
 double getResult();
+
 //solutii getSolutii();
 //char getType();
-//EquationHandler getHandler();
-//unsigned int getBufferSize();
+//get BufferSize();
+//get Handler();
+
 //Setteri
 //void setHandler(EquationHandler _handler)
 //void setBufferSize(int buffer_Size)
+// set errorMessage(std::string errorMessage);
+
+
 void setExpr(char *expr);
 void setChecker(Checker checker);
+
 //Overload
 friend std::ostream& operator<<(std::ostream& os, const Calculator& c);
 friend std::istream& operator>>(std::istream& is, Calculator& c);

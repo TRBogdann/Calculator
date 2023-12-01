@@ -155,14 +155,27 @@ void str_functions::add_to_str(char *str1, char*str2, int len)
 //abcdefghi alb begin=2 end=5  left=ab0 str2=alb right=ghi0
 // l1=new char[begin+1]  l2=new char[strlen(str1)-end] 
 //ab alb ghi 0-9
+
 void str_functions::strReplace(char *&str1,int begin,int end,char *str2)
-{
-    char *finalEq=new char[begin+strlen(str2)+end-1];
-    char *left=new char[begin+1];
-    char *right=new char[strlen(str1)-end];
-    
+{   
+    char *finalEq=0;
+    char *left=0;
+    char *right=0;
+   
+    if(begin+strlen(str2)+end-1>1)
+        finalEq=new char[begin+strlen(str2)+end+2];
+
+    if(begin+1>1)
+        left=new char[begin+1];
+
+    if(strlen(str1)-end>1)
+        right=new char[strlen(str1)-end];
+  
+    if(finalEq!=0)
     strcpy(finalEq,"");
 
+
+if(left!=0){
     if(begin==0)
         strcpy(left,"");
     else 
@@ -170,30 +183,37 @@ void str_functions::strReplace(char *&str1,int begin,int end,char *str2)
         strncpy(left,str1,begin);
         left[begin]=0;
     }
-    
-    
-    if(end!=strlen(str1-1))
+    }
+
+if(right!=0){
+    if(end!=strlen(str1)-1)
         strcpy(right,str1+end);
     else
         strcpy(right,"");
+}
 
-    
-
-   strcat(finalEq,left);
+if(finalEq){
+   if(left)strcat(finalEq,left);
    strcat(finalEq,str2);
-   strcat(finalEq,right);
-   
-
+   if(right)strcat(finalEq,right);
+  
     delete[] str1;
 
     str1=new char[strlen(finalEq)+1];
     strcpy(str1,finalEq);
+}
+
+
+if(left!=0){
 
     delete[] left;
+
+}
+if(right!=0)
     delete[] right;
+
+if(finalEq!=0)
     delete[] finalEq;
-
-
 
 }
 

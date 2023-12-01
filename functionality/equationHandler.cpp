@@ -501,6 +501,7 @@ void EquationHandler::simplifyEcuation(char* &equation,char unk)
         if(coeficient!=0){
             if(coeficient!=1 || power==0){
             char* coef_formatted=str_functions::double_to_string(coeficient);
+
             strcat(eq,coef_formatted);
             delete[] coef_formatted;
             }
@@ -570,10 +571,8 @@ void EquationHandler::modifyEcuation(char* &equation,char unk)
     }
     clearBuffer(1);
     clearBuffer(2);
-
     char *temp=new char[buffer_size+1];
     strcpy(temp,"");
-
     //Second Step
     if(equation[start1-2]=='*'){
                     direction=0;
@@ -629,18 +628,17 @@ void EquationHandler::modifyEcuation(char* &equation,char unk)
         }
 
     }
-
+    
 
     else if(!remove_paranthesis) {
         if(!direction)
-        {
+        { 
             findLastSegment(equation,start1-2,'+','-',2);
             left_margin=start2;
             right_margin=end1+1;
         }
         else 
         {   
-
             findFirstSegment(equation+end1+3,'+','-',2);
             this->start2+=end1+3;
             this->end2+=end1+3;
@@ -662,7 +660,7 @@ void EquationHandler::modifyEcuation(char* &equation,char unk)
         eq1=new char[end1-start1+2];
         strcpy(eq1,"");
         str_functions::add_to_str(eq1,equation+start1,end1-start1+1);
-        
+
         if(!rev){
         eq2=new char[end2-start2+2];
         strcpy(eq2,"");
@@ -690,13 +688,13 @@ void EquationHandler::modifyEcuation(char* &equation,char unk)
     }
     
     if(strlen(temp)>0){
-    //str_functions::printSegment(equation+left_margin,right_margin-left_margin+1);
+    std::cout<<temp<<"\n";
+    str_functions::printSegment(equation+left_margin,right_margin-left_margin+1);
     str_functions::strReplace(equation,left_margin,right_margin+1,temp);
     
     delete[] temp;
    
     }
-
     if(res)
         delete [] res;
 
@@ -705,7 +703,6 @@ void EquationHandler::modifyEcuation(char* &equation,char unk)
 
     if(eq2)
         delete [] eq2;
-
     clearBuffer(1);
     clearBuffer(2);
     modifyEcuation(equation,unk);
