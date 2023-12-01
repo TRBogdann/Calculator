@@ -1,4 +1,5 @@
 #include "calculator.h"
+#include "equation.h"
 #include <cstring>
 #include <iostream>
 #include <iomanip>
@@ -13,6 +14,10 @@ handler(EquationHandler(buffer_size)),_buffer_size(buffer_size)
   this->expression=0; 
   this->last_result=0;
   this->error_message="";
+
+  this->last_sol={0.0f,0.0f};
+  this->lastType=0;
+
 }
 
 Calculator::~Calculator(){
@@ -86,10 +91,23 @@ void Calculator::printResult()
         return;
     }
 
+    if(this->lastType==0){
     std::cout<<"Result: ";
     int precision=getPrecision();
     std::cout << std::fixed;
     std::cout<<std::setprecision(precision)<<this->last_result<<'\n';
+    return;
+    }
+
+    std::cout<<"Solutii: \n";
+    if(last_sol.x2==0){
+    std::cout<<"x= "<<last_sol.x1<<'\n';
+    }
+    else{
+    std::cout<<"x1= "<<last_sol.x1<<'\n';
+    std::cout<<"x2= "<<last_sol.x2<<'\n';
+    }
+
 }
 
 void Calculator::loop()
@@ -130,6 +148,7 @@ void Calculator::setChecker(Checker check){
 void Calculator::evalExpr()
 {
     int type=checker.checkExpression(this->expression);
+    bool equation =0;
     switch (type) {
         case SYNTAX_ERROR:
             this->error_message="SYNTAX ERROR";
@@ -148,16 +167,48 @@ void Calculator::evalExpr()
             break;
         
         case ECUATION:
-            this->error_message="Can t solve ecuations yet";
+            this->error_message="";
+            equation=1;
             break;
         
         default:
             this->error_message="";
     }
     
-    if(error_message=="")
-        last_result=math_functions::evalSeg(this->expression,strlen(this->expression),0,this->error_message);
+    if(error_message==""){
+        if(!equation)
+            last_result=math_functions::evalSeg(this->expression,strlen(this->expression),0,this->error_message);
+        else 
+            {
+                handler.setEquation(this->expression);
+                int degree=1+(handler.getCoeficientOf(2)!=0);
+                double *params=new double[4];
+                if(degree==1)
+                {
+                    params[0]=handler.getCoeficientOf(1);
+                    params[1]=handler.getCoeficientOf(0);
+                    params[2]=0;
+                    params[3]=0;
+                }
 
-    if(error_message=="Can t solve ecuations yet")
+                if(degree==2)
+                {
+                    params[0]=handler.getCoeficientOf(2);
+                    params[1]=handler.getCoeficientOf(1);
+                    params[2]=handler.getCoeficientOf(0);
+                    params[3]=0;
+
+                    std::cout<<" "<<params[0]<<" "<<params[1]<<" "<<
+                    params[2]<<" "<<params[3]<<'\n';
+                }
+                Equation eq(degree,'x',params);
+                this->last_sol=eq.s_degree();
+            };
+    }
+
+    if(error_message=="eq"){
         this->handler.setEquation(this->expression);
+    }
+
+    lastType=equation;
 }

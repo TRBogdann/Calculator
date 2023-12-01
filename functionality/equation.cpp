@@ -90,7 +90,7 @@ std::istream& operator>>(std::istream& is, Equation& e) {
 
 
 
-Equation& operator!(const Equation& e){
+Equation operator!(const Equation& e){
     Equation e1;
     e1.params[0] = (-1)*e.params[0];
     e1.params[1] = (-1)*e.params[1];
@@ -99,7 +99,7 @@ Equation& operator!(const Equation& e){
     return e1;
 }
 
-Equation &operator^(const Equation &e, float y)
+Equation operator^(const Equation &e, float y)
 {   Equation e1(e);
     e1.params[0] = math_functions::pow(e.params[0], y);
     e1.params[1] = math_functions::pow(e.params[1], y);
@@ -127,14 +127,10 @@ solutii Equation::s_degree(){
     solutii s;
     double delta, sqrt_delta, pp, dp;
     delta = params[1] * params[1] - 4 * params[0] * (params[2]-params[3]);
-    std::cout << "CP1 -- s was created\n";
-    std::cout<<delta<<'\n';
 	sqrt_delta =math_functions::sqrt(delta, 2.0f);
     pp = (-1)*(params[1]) / (2 * params[0]);
     dp = sqrt_delta/(2 * params[0]);
     s.x1 = pp + dp;
-    std::cout << "CP2 -- s.x1 was initialized\n";
     s.x2 = pp - dp;
-    std::cout << "CP3 -- s.x2 was initialized\n";
     return s;
 }

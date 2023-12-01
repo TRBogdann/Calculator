@@ -110,10 +110,11 @@ double EquationHandler::getCoeficientOf(unsigned int power)
         findFirstSegment(this->leftHandEquation+i,'+','-');
         if(powerOfX(leftHandEquation+start1+i,end1-start1+1,this->unk)==power)
         {
-            if(start1!=0)
-            {
-                if(leftHandEquation[start1+i-1]=='+')
+            if(start1+i!=0)
+            {   
+                if(leftHandEquation[start1+i-1]=='+'){
                  sign=1.0f;
+                }
                 else
                  sign=-1.0f;  
             }
@@ -132,7 +133,7 @@ double EquationHandler::getCoeficientOf(unsigned int power)
         findFirstSegment(this->rightHandEquation+i,'+','-');
         if(powerOfX(rightHandEquation+start1+i,end1-start1+1,this->unk)==power)
         {
-            if(start1!=0)
+            if(start1+i!=0)
             {
                 if(rightHandEquation[start1+i-1]=='+')
                  sign=-1.0f;
@@ -458,7 +459,9 @@ void EquationHandler::multiplyEcuations(char* &str1,char* eq1,char* eq2)
     str1=new char[strlen(eq)+1];
     strcpy(str1,eq);
     
+    if(eq){
     delete[] eq;
+    }
 }
 
 void EquationHandler::simplifyEcuation(char* &equation,char unk)
@@ -533,7 +536,10 @@ void EquationHandler::simplifyEcuation(char* &equation,char unk)
     equation=new char[strlen(eq)+1];
     strcpy(equation,eq);
 
+    if(eq)
+    {
     delete[] eq;
+    }
 
 }
 

@@ -79,6 +79,32 @@ void Textbox::fillWithTexture(unsigned int position)
          positionArray[i]=position;
 }
 
+void Textbox::updateTextRev(char* buffer,int len)
+{
+    bool unknown_char=0;
+    int j=0;
+    int i=0;
+    while(i<15 && j<len)
+    {  
+    int pos=charIsUsable(buffer[j]);
+        if(pos<0)
+        {
+            fillWithTexture(1);
+            return;
+        }
+        positionArray[i]=pos;
+
+        j++;
+        i++;
+    }
+
+        while(i<15)
+    {
+        positionArray[i]=0;
+        i++;
+    }
+};
+
 void Textbox::updateText(char* buffer,int len)
 {
     bool unknown_char=0;

@@ -15,6 +15,7 @@ Textbox(std::string texturePaths[20],Math::vec2f position,float width);
 void fillWithTexture(unsigned int position);
 void draw(VertexArray &arr,VertexBuffer &buff,IndexBuffer &ind,Shader &shader,Renderer &renderer,Window &window);
 void updateText(char *buffer,int len);
+void updateTextRev(char *buffer,int len);
 int charIsUsable(char chr);
 private:
 const char referenceVector[21]= " #^+-*/.()1234567890";

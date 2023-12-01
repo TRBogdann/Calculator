@@ -45,7 +45,7 @@ char* str_functions::double_to_string(double number)
     number+=fix;
     char *str;
     int len=0;
-    int int_part=int(number);
+    long long  int_part=(long long)(number);
     double decimal_part=number-int(number);
     bool sign=0;
 
@@ -86,7 +86,7 @@ char* str_functions::double_to_string(double number)
         {
             decimal_part*=10;
             
-            if((int(decimal_part))%10==0)
+            if(((long long)(decimal_part))%10==0)
             {
                 rest++;
             }
@@ -101,8 +101,8 @@ char* str_functions::double_to_string(double number)
     }
 
     str=new char[len+1];
-    int_part=int(number);
-    decimal_part=number-int(number);
+    int_part=(long long)(number);
+    decimal_part=number-(long long)(number);
 
     int i=rev;
     while(i>0)

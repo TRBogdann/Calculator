@@ -1,4 +1,5 @@
 
+#include "equation.h"
 #include "equationHandler.h"
 #include "checker.h"
 #include "str_functions.h"
@@ -18,6 +19,8 @@ char* getExpr();
 Checker getChecker();
 std::string getErrorMessage();
 double getResult();
+//solutii getSolutii();
+//char getType();
 //EquationHandler getHandler();
 //unsigned int getBufferSize();
 //Setteri
@@ -38,7 +41,9 @@ private:
 unsigned int _buffer_size;
 Checker checker;
 char *expression;
+char lastType;
 double last_result;
+solutii last_sol;
 std::string error_message;
 EquationHandler handler;
 int getPrecision();

@@ -140,7 +140,7 @@ while(!window.isClosed())
 
     if(event.type==SDL_MOUSEMOTION)
     {
-    
+       
         SDL_GetMouseState(&xMouse,&yMouse);
         leftParButton.intersects({float(xMouse),float(yMouse)});
         rightParButton.intersects({float(xMouse),float(yMouse)});
@@ -173,6 +173,7 @@ while(!window.isClosed())
     {
         if(event.button.button==SDL_BUTTON_LEFT)
         {   
+             int reverse=0;
             if(oneButton.isSelected())strcat(buffer,"1");
             if(twoButton.isSelected())strcat(buffer,"2");
             if(threeButton.isSelected())strcat(buffer,"3");
@@ -211,11 +212,16 @@ while(!window.isClosed())
                     char *temp=str_functions::double_to_string(calculator.getResult());
                     strcpy(buffer,temp);
                     delete [] temp;
+                    reverse=1;
             
                 }
             }
             
+            if(!reverse)
             textbox.updateText(buffer,strlen(buffer));
+
+            else
+            textbox.updateTextRev(buffer,strlen(buffer));
         }
         
     }

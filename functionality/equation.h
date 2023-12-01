@@ -32,8 +32,8 @@ public:
 //Overloads
     friend std::ostream& operator<<(std::ostream& os,const Equation& e);
     friend std::istream& operator>>(std::istream& is, Equation& e);
-    friend Equation& operator!(const Equation& e);
-    friend Equation& operator^(const Equation &e, float y);
+    friend Equation operator!(const Equation& e);
+    friend Equation operator^(const Equation &e, float y);
     Equation& operator=(const Equation& e);
 //Alte Metode
     double f_degree();
